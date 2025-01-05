@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "remember5-telegram-bot"
+version = "0.1.0"
+description = ""
+authors = ["wangjiahao <1332661444@qq.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.16"
+python-telegram-bot = "^21.10"
+requests = "^2.32.3"
+python-dotenv = "^1.0.1"
+sqlalchemy = "^2.0.36"
+alembic = "^1.14.0"
+aiohttp = "^3.11.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,9 @@
+services:
+  telegram-bot:
+    build: .
+    container_name: telegram-bot
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}  # 从 .env 文件读取
+    volumes:
+      - ./data:/data  # 挂载 SQLite 数据库文件
+    restart: unless-stopped
