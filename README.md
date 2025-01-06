@@ -5,13 +5,12 @@ telegram bot
 
 # Usage
 
-在项目根目录下运行以下命令，初始化 Alembic：
-
-`poetry run alembic init migrations`
+在项目根目录下运行以下命令，初始化 Alembic：`poetry run alembic init migrations`
 
 然后，编辑 `alembic.ini` 文件，更新数据库连接字符串：
 
 `sqlalchemy.url = sqlite:///bot.db`
+
 编辑 `migrations/env.py`，配置 `SQLAlchemy` 模型：
 
 ```python
@@ -21,13 +20,11 @@ from bot.models.user import User  # 导入你的模型
 target_metadata = Base.metadata
 ```
 
-创建迁移脚本
-每次修改模型后，运行以下命令生成迁移脚本：
+## 创建迁移脚本
 
-`poetry run alembic revision --autogenerate -m "add_user_table"`
-应用迁移：
+每次修改模型后，运行以下命令生成迁移脚本：`poetry run alembic revision --autogenerate -m "add_user_table"`
 
-`poetry run alembic upgrade head`
+应用迁移：`poetry run alembic upgrade head`
 
 
 # Reference

@@ -5,6 +5,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    username = Column(String, unique=True, index=True, nullable=True)  # 允许 username 为空
-    chat_id = Column(Integer, unique=True, index=True)
-    is_admin = Column(Boolean, default=False)  # 新增字段
+    user_id = Column(Integer, unique=True, index=True) # user_id
+    username = Column(String, unique=True, index=True, nullable=True)  # username
+    chat_id = Column(Integer, unique=True, index=True) # chat_id
+    is_admin = Column(Boolean, default=False)  # is_admin

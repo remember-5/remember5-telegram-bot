@@ -1,47 +1,36 @@
-from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CallbackContext, ContextTypes
+from telegram import Update
+from telegram.ext import CallbackContext
+from bot.config import FILE_SAVE_PATH
+from bot.handlers.btn_constants import folder_btn, config_btn
 
-from bot.utils import logger
 
-
-CALLBACK_PREFIX_OPTION = "option_"
-
-async def handler_inline_keyboard(update: Update, context: CallbackContext):
+async def handler_inline_callback(update: Update, context: CallbackContext):
     """
-    处理 /line-keyboard 命令，发送内联键盘。
+    处理用户选择的保存路径。
     """
-    user_id = update.message.from_user.id
-
-    # 创建内联键盘
-    keyboard = [
-        [InlineKeyboardButton("Option 1", callback_data=f"{CALLBACK_PREFIX_OPTION}option1_{user_id}")],
-        [InlineKeyboardButton("Option 2", callback_data=f"{CALLBACK_PREFIX_OPTION}option2_{user_id}")],
-        [InlineKeyboardButton("Option 3", callback_data=f"{CALLBACK_PREFIX_OPTION}option3_{user_id}")],
-    ]
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    # 发送内联键盘
-    await update.message.reply_text("Please choose an option:", reply_markup=reply_markup)
-
-
-async def inline_keyboard_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """
-    处理用户点击按钮的回调。
-    """
-    logger.info("inline_keyboard_callback")
     query = update.callback_query
     await query.answer()
 
-    # 解析 callback_data
-    data = query.data.split("_")
-    logger.info(f"data: {data}")
-    option = data[0]
-    user_id = int(data[1])
-
-    if option == f"{CALLBACK_PREFIX_OPTION}option1":
-        await query.edit_message_text(text=f"User {user_id} chose Option 1")
-    elif option == f"{CALLBACK_PREFIX_OPTION}option2":
-        await query.edit_message_text(text=f"User {user_id} chose Option 2")
-    elif option == f"{CALLBACK_PREFIX_OPTION}option3":
-        await query.edit_message_text(text=f"User {user_id} chose Option 3")
+    # 获取用户选择的路径
+    if query.data == folder_btn["create_folder"]["callback_data"]:
+        # 创建文件夹
+        await query.edit_message_text(folder_btn["create_folder"]["text"])
+    elif query.data == folder_btn["delete_folder"]["callback_data"]:
+        # 删除文件夹
+        await query.edit_message_text(folder_btn["delete_folder"]["text"])
+    elif query.data == folder_btn["show_folder"]["callback_data"]:
+        # 查看文件夹
+        await query.edit_message_text(folder_btn["show_folder"]["text"])
+    elif query.data == config_btn["set_default_path"]["callback_data"]:
+        # 设置默认路径
+        save_path = FILE_SAVE_PATH
+        context.user_data["save_path"] = save_path
+        await query.edit_message_text(f"保存路径已设置为默认路径: {save_path}")
+    elif query.data == config_btn["get_default_path"]["callback_data"]:
+        # 获取默认路径
+        save_path = context.user_data.get("save_path", FILE_SAVE_PATH)
+        await query.edit_message_text(f"当前保存路径为默认路径: {save_path}")
+    elif query.data == config_btn["input_custom_path"]["callback_data"]:
+        # 提示用户输入自定义路径
+        await query.edit_message_text("请输入自定义路径（例如：/path/to/save）：")
+        context.user_data["pending_path_input"] = True

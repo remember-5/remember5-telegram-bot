@@ -7,7 +7,7 @@ load_dotenv()
 # 读取配置
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
-UPDATE_MY_COMMANDS = os.getenv("UPDATE_MY_COMMANDS")
+UPDATE_MY_COMMANDS = os.getenv("UPDATE_MY_COMMANDS", True).lower() == "true"
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 

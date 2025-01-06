@@ -47,7 +47,7 @@ async def handle_media_group(update: Update, context: CallbackContext, media_gro
         # 清除缓存
         del media_group_cache[media_group_id]
 
-async def handle_media(update: Update, context: CallbackContext):
+async def handle_media_callback(update: Update, context: CallbackContext):
     """
     处理用户转发的图片或视频。
     """
