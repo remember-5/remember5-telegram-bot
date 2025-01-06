@@ -6,7 +6,7 @@ from bot.handlers.btn_constants import folder_btn, config_btn
 
 async def handler_inline_callback(update: Update, context: CallbackContext):
     """
-    处理用户选择的保存路径。
+    处理用户选择的 Inline 按钮点击事件。
     """
     query = update.callback_query
     await query.answer()
@@ -33,4 +33,7 @@ async def handler_inline_callback(update: Update, context: CallbackContext):
     elif query.data == config_btn["input_custom_path"]["callback_data"]:
         # 提示用户输入自定义路径
         await query.edit_message_text("请输入自定义路径（例如：/path/to/save）：")
-        context.user_data["pending_path_input"] = True
+        context.user_data["pending_input"] = {
+            "type": "input_custom_path",  # 标记输入类型
+            "callback_data": query.data  # 保存回调数据，便于后续处理
+        }
