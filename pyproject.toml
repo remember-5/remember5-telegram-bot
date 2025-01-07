@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "remember5-telegram-bot"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["wangjiahao <1332661444@qq.com>"]
 readme = "README.md"

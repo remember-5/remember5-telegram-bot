@@ -18,7 +18,7 @@ RUN poetry config virtualenvs.create false && \
 RUN poetry install --no-root
 
 # 复制 Bot 代码
-COPY ./bot ./bot
+COPY . .
 
 # 设置环境变量
 ENV TELEGRAM_BOT_TOKEN=YOUR_BOT_TOKEN
