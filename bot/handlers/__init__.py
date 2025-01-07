@@ -1,15 +1,18 @@
 from .error_handlers import handler_error
-from .start_handlers import handler_start
-from .help_handler import handler_help
-from .reply_handlers import handler_reply_keyboard
-from .inline_handlers import handler_inline_keyboard
-from .media_handlers import handle_media
+from .command_handlers import start, settings, helps, reply
+from .text_handlers import text_callback
+from .media_handlers import handle_media_callback
+from .inline_handlers import handler_inline_callback
 
 __all__ = [
     "handler_error",
-    "handler_start",
-    "handler_help",
-    "handler_reply_keyboard",
-    "handler_inline_keyboard",
-    "handle_media",
+    "start",
+    "settings",
+    "helps",
+    "reply",
+    "text_callback",
+    "handle_media_callback",
 ]
+
+
+

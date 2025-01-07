@@ -1,13 +1,13 @@
 import os
 from telegram import Update
 from telegram.ext import CallbackContext
+
+from bot.config import FILE_SAVE_PATH
 from bot.utils import logger
 from bot.utils.download_utils import download_small_file, download_large_file
 
-
 # 全局变量，用于存储媒体组消息
 media_group_cache = {}
-
 
 async def handle_media_group(update: Update, context: CallbackContext, media_group_id: str, save_path: str):
     """
@@ -47,12 +47,12 @@ async def handle_media_group(update: Update, context: CallbackContext, media_gro
         # 清除缓存
         del media_group_cache[media_group_id]
 
-async def handle_media(update: Update, context: CallbackContext):
+async def handle_media_callback(update: Update, context: CallbackContext):
     """
     处理用户转发的图片或视频。
     """
     # 获取默认下载路径
-    save_path = context.user_data.get("save_path", "downloads")
+    save_path = context.user_data.get("save_path", FILE_SAVE_PATH)
     # 检查路径是否存在
     if not os.path.exists(save_path):
         os.makedirs(save_path, exist_ok=True)

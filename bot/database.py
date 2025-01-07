@@ -15,3 +15,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # 初始化数据库
 def init_db():
     Base.metadata.create_all(bind=engine)
+
+# 关闭数据库
+def close_db():
+    engine.dispose()
