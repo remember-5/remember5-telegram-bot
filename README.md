@@ -1,34 +1,84 @@
-# Introduction
-telegram bot
+# Telegram Media Forwarder & Cloud Uploader
 
-转发消息给bot,实现下载并上传到云盘
+## Project Description
 
-# Usage
+This is an open-source tool designed to forward media files from Telegram messages to a bot, automatically download
+them, and upload them to a cloud storage service. It is cross-platform and ideal for users who need to back up or
+migrate Telegram media files.
 
-在项目根目录下运行以下命令，初始化 Alembic：`poetry run alembic init migrations`
+## Installation Guide
 
-然后，编辑 `alembic.ini` 文件，更新数据库连接字符串：
+### Requirements
 
-`sqlalchemy.url = sqlite:///bot.db`
+- Python 3.10
+- Poetry (dependency management tool)
 
-编辑 `migrations/env.py`，配置 `SQLAlchemy` 模型：
+### Installation Steps
 
-```python
-from bot.database import Base
-from bot.models.user import User  # 导入你的模型
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-repo/telegram-media-forwarder.git
+    cd telegram-media-forwarder
+    ```
 
-target_metadata = Base.metadata
-```
+2. Install dependencies:
+   ```bash
+   poetry install
+   ```
 
-## 创建迁移脚本
+3. Create and edit the `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
+   Modify the `.env` file according to your requirements.
 
-每次修改模型后，运行以下命令生成迁移脚本：`poetry run alembic revision --autogenerate -m "add_user_table"`
+## Usage Instructions
 
-应用迁移：`poetry run alembic upgrade head`
+### Database Migrations
 
+1. Generate migration scripts (when models change):
+   ```bash
+   poetry run alembic revision --autogenerate -m "add_user_table"
+   ```
 
-# Reference
+2. Apply migrations:
+   ```bash
+   poetry run alembic upgrade head
+   ```
+
+3. If Alembic is not initialized, initialize it first:
+   ```bash
+   poetry run alembic init bot/migrations
+   ```
+
+4. Configure the database connection:
+    - Edit the `alembic.ini` file and update the database connection string:
+      ```ini
+      sqlalchemy.url = sqlite:///bot.db
+      ```
+
+    - Edit the `migrations/env.py` file and configure the `SQLAlchemy` model:
+      ```python
+      from bot.database import Base
+      from bot.models.user import User  # Import your models
+ 
+      target_metadata = Base.metadata
+      ```
+
+## Contribution Guidelines
+
+We welcome issues and pull requests! Please follow these steps:
+
+1. Fork the project and create your branch.
+2. Commit your changes and create a pull request.
+3. Ensure your code passes all tests and follows the project's coding style.
+
+## References
 
 - [tg-auto-install-bot](https://github.com/ershiyi21/myprogram)
 - [tgtogd](https://github.com/Xiefengshang/tgtogd)
-- [telegram_media_downloader](https://github.com/tangyoha/telegram_media_downloader) 基于Dineshkarthik的项目， 电报视频下载，电报资源下载，跨平台，支持web查看下载进度 ，支持bot下发指令下载，支持下载已经加入的私有群但是限制下载的资源， telegram media download,Download media files from a telegram conversation/chat/channel up to 2GiB per file 
+- [telegram_media_downloader](https://github.com/tangyoha/telegram_media_downloader)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
